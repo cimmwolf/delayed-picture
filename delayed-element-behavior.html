@@ -4,20 +4,18 @@
             height: {
                 type: Number,
                 value: function() {
-                    return document.documentElement.clientHeight || 200;
+                    return document.documentElement.clientHeight;
                 }
             }
         },
         ready: function() {
-            let height;
-            height = document.documentElement.clientHeight || 200;
             try {
                 this._observer = new IntersectionObserver((entries) => {
                     if (entries[0].isIntersecting) {
                         this.load();
                         this._observer.disconnect();
                     }
-                }, {threshold: [0], rootMargin: '0px 0px ' + height + 'px'});
+                }, {threshold: [0], rootMargin: '0px 0px ' + this.height + 'px'});
             } catch (e) {
                 this.load();
             }
@@ -27,7 +25,7 @@
                 this._observer.observe(this);
             }
         },
-        load() {
+        load: function() {
         }
     }
 </script>

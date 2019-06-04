@@ -22,10 +22,10 @@
             properties: {
                 alt: {type: String, value: ''}
             },
-            load() {
+            load: function() {
                 let sources = this.querySelectorAll('source');
                 for (let i = 0, len = sources.length; i < len; i++) {
-                    let source = this.querySelector('source');
+                    let source = sources[i];
                     if (!source.getAttribute('srcset')) {
                         source.setAttribute('srcset', source.getAttribute('src'));
                     }
