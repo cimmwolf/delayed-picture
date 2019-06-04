@@ -1,14 +1,20 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
 <script>
-    DelayedElementBehavior = {
-        properties: {
-            height: {
-                type: Number,
-                value: function() {
-                    return document.documentElement.clientHeight;
+    class DelayedElement extends Polymer.Element {
+        static get properties() {
+            return {
+                height: {
+                    type: Number,
+                    value: function() {
+                        return document.documentElement.clientHeight;
+                    }
                 }
             }
-        },
-        ready: function() {
+        }
+
+        ready() {
+            super.ready();
             try {
                 this._observer = new IntersectionObserver((entries) => {
                     if (entries[0].isIntersecting) {
@@ -19,13 +25,16 @@
             } catch (e) {
                 this.load();
             }
-        },
-        attached: function() {
+        }
+
+        connectedCallback() {
+            super.connectedCallback();
             if (this._observer) {
                 this._observer.observe(this);
             }
-        },
-        load: function() {
+        }
+
+        load() {
         }
     }
 </script>

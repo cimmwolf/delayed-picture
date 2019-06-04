@@ -1,5 +1,5 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="delayed-element-behavior.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="delayed-element.html">
 
 <dom-module id="delayed-picture">
     <template>
@@ -10,19 +10,24 @@
                 min-width: 1px;
             }
         </style>
-        <content></content>
+        <slot></slot>
         <picture id="picture">
             <img id="img" src alt>
         </picture>
     </template>
     <script>
-        Polymer({
-            is: 'delayed-picture',
-            behaviors: [DelayedElementBehavior],
-            properties: {
-                alt: {type: String, value: ''}
-            },
-            load: function() {
+        class DelayedPicture extends DelayedElement {
+            static get is() {
+                return 'delayed-picture'
+            }
+
+            static get properties() {
+                return {
+                    alt: {type: String, value: ''}
+                }
+            }
+
+            load() {
                 let sources = this.querySelectorAll('source');
                 for (let i = 0, len = sources.length; i < len; i++) {
                     let source = sources[i];
@@ -37,6 +42,8 @@
                 this.$.picture.className = this.className;
                 this.className = '';
             }
-        });
+        }
+
+        customElements.define(DelayedPicture.is, DelayedPicture);
     </script>
 </dom-module>
