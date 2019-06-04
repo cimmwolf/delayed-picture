@@ -1,0 +1,25 @@
+{
+  "name": "delayed-picture",
+  "authors": [
+    "cimmwolf <cimmwolf@gmail.com>"
+  ],
+  "description": "The picture element that is loaded only when a user scroll to it",
+  "main": "delayed-picture.html",
+  "keywords": [
+    "delayed",
+    "picture"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "^1.0"
+  }
+}

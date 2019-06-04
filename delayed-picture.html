@@ -1,0 +1,42 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="delayed-element-behavior.html">
+
+<dom-module id="delayed-picture">
+    <template>
+        <style>
+            :host {
+                /* workaround for Edge intersectionObserverApi bug*/
+                display: inline-block;
+                min-width: 1px;
+            }
+        </style>
+        <content></content>
+        <picture id="picture">
+            <img id="img" src alt>
+        </picture>
+    </template>
+    <script>
+        Polymer({
+            is: 'delayed-picture',
+            behaviors: [DelayedElementBehavior],
+            properties: {
+                alt: {type: String, value: ''}
+            },
+            load() {
+                let sources = this.querySelectorAll('source');
+                for (let i = 0, len = sources.length; i < len; i++) {
+                    let source = this.querySelector('source');
+                    if (!source.getAttribute('srcset')) {
+                        source.setAttribute('srcset', source.getAttribute('src'));
+                    }
+                    source.removeAttribute('src');
+                    this.$.picture.insertBefore(source, this.$.img);
+                }
+
+                this.$.img.setAttribute('alt', this.alt);
+                this.$.picture.className = this.className;
+                this.className = '';
+            }
+        });
+    </script>
+</dom-module>
