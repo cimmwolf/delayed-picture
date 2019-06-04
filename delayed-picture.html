@@ -11,9 +11,6 @@
             }
         </style>
         <slot></slot>
-        <picture id="picture">
-            <img id="img" src alt>
-        </picture>
     </template>
     <script>
         class DelayedPicture extends DelayedElement {
@@ -28,6 +25,13 @@
             }
 
             load() {
+                let picture = document.createElement('picture');
+                let img = document.createElement('img');
+                img.setAttribute('alt', this.alt);
+                img.className = this.className;
+                this.removeAttribute('class');
+                this.removeAttribute('alt');
+
                 let sources = this.querySelectorAll('source');
                 for (let i = 0, len = sources.length; i < len; i++) {
                     let source = sources[i];
@@ -35,12 +39,11 @@
                         source.setAttribute('srcset', source.getAttribute('src'));
                     }
                     source.removeAttribute('src');
-                    this.$.picture.insertBefore(source, this.$.img);
+                    picture.appendChild(source);
                 }
 
-                this.$.img.setAttribute('alt', this.alt);
-                this.$.picture.className = this.className;
-                this.className = '';
+                picture.appendChild(img);
+                this.appendChild(picture);
             }
         }
 
