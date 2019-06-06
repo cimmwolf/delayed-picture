@@ -25,25 +25,32 @@
             }
 
             load() {
-                let picture = document.createElement('picture');
-                let img = document.createElement('img');
-                img.setAttribute('alt', this.alt);
-                img.className = this.className;
-                this.removeAttribute('class');
-                this.removeAttribute('alt');
-
-                let sources = this.querySelectorAll('source');
-                for (let i = 0, len = sources.length; i < len; i++) {
-                    let source = sources[i];
-                    if (!source.getAttribute('srcset')) {
-                        source.setAttribute('srcset', source.getAttribute('src'));
+                let sources = [];
+                for (let i = 0, len = this.children.length; i < len; i++) {
+                    if (this.children[i].tagName === 'SOURCE') {
+                        sources.push(this.children[i]);
                     }
-                    source.removeAttribute('src');
-                    picture.appendChild(source);
                 }
+                if (sources.length > 0) {
+                    let picture = document.createElement('picture');
+                    let img = document.createElement('img');
+                    img.setAttribute('alt', this.alt);
+                    img.className = this.className;
+                    this.removeAttribute('class');
+                    this.removeAttribute('alt');
 
-                picture.appendChild(img);
-                this.appendChild(picture);
+                    for (let i = 0, len = sources.length; i < len; i++) {
+                        let source = sources[i];
+                        if (!source.getAttribute('srcset')) {
+                            source.setAttribute('srcset', source.getAttribute('src'));
+                        }
+                        source.removeAttribute('src');
+                        picture.appendChild(source);
+                    }
+
+                    picture.appendChild(img);
+                    this.appendChild(picture);
+                }
             }
         }
 
