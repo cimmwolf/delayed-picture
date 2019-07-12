@@ -1,6 +1,7 @@
 {
-  "name": "delayed-picture",
+  "name": "@vistro/delayed-picture",
   "main": "delayed-picture.js",
+  "license": "MIT",
   "dependencies": {
     "@polymer/polymer": "^3.0.0"
   },
@@ -11,5 +12,6 @@
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
     "wct-mocha": "^1.0.1"
-  }
+  },
+  "version": "3.0.0"
 }
