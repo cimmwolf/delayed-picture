@@ -33,6 +33,10 @@ class DelayedPicture extends DelayedElement {
   }
 
   load() {
+    // slotchange event does not fired in safari 11
+    if (!this._sources) {
+      this._onSlotChange();
+    }
     let sources = this._sources;
     if (sources.length > 0) {
       let picture = document.createElement('picture');
