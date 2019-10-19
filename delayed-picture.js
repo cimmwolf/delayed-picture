@@ -10,7 +10,7 @@ import {DelayedElement} from './delayed-element.js';
  * @polymer
  * @demo demo/index.html
  */
-class DelayedPicture extends DelayedElement {
+export class DelayedPicture extends DelayedElement {
   static get template() {
     return html`
       <style>
